@@ -1,0 +1,19 @@
+alias: Announce doorbell door unlocked
+mode: single
+trigger:
+  - platform: state
+    entity_id:
+      - cover.doorbell_door
+    to: open
+    from: closed
+condition:
+  - condition:
+      - condition: template
+        value_template: >
+          {{ (as_timestamp(now()) - as_timestamp(states.input_boolean.doorbell_calling.last_changed)) <= 60 }}
+action:
+  - service: dahua.vto_open_door
+    target:
+      entity_id: camera.doorbell_dahua
+    data:
+      door_id: 1

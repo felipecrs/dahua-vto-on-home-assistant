@@ -1,0 +1,157 @@
+title: Doorbell
+path: doorbell
+cards:
+  - type: custom:frigate-card
+    cameras:
+      - camera_entity: camera.doorbell
+        live_provider: go2rtc
+        image:
+          refresh_seconds: 1
+        go2rtc:
+          stream: doorbell_mic
+          modes:
+            - webrtc
+    elements:
+      - type: custom:frigate-card-conditional
+        conditions:
+          microphone:
+            connected: false
+        elements:
+          - type: custom:frigate-card-menu-icon
+            icon: mdi:phone
+            alignment: opposing
+            style:
+              color: green
+            tap_action:
+              - action: custom:frigate-card-action
+                frigate_card_action: microphone_unmute
+      - type: custom:frigate-card-conditional
+        conditions:
+          state:
+            - entity: input_boolean.doorbell_calling
+              state: "on"
+        elements:
+          - type: custom:frigate-card-menu-icon
+            icon: mdi:phone-hangup
+            alignment: opposing
+            style:
+              color: red
+            tap_action:
+              - action: call-service
+                service: input_boolean.turn_off
+                data:
+                  entity_id: input_boolean.doorbell_calling
+      - type: custom:frigate-card-conditional
+        conditions:
+          microphone:
+            connected: true
+        elements:
+          - type: custom:frigate-card-menu-icon
+            icon: mdi:phone-hangup
+            alignment: opposing
+            style:
+              color: red
+            tap_action:
+              - action: custom:frigate-card-action
+                frigate_card_action: microphone_mute
+              - action: call-service
+                service: fully_kiosk.load_url
+                data:
+                  url: http://homeassistant.local:8123/lovelace/0
+                  device_id: b5005de440d90c862538e61299d8d9f1
+    automations:
+      - conditions:
+          microphone:
+            connected: true
+        actions:
+          - action: call-service
+            service: input_boolean.turn_off
+            data:
+              entity_id: input_boolean.doorbell_calling
+    live:
+      controls:
+        builtin: false
+        title:
+          mode: none
+        thumbnails:
+          mode: none
+      zoomable: true
+      show_image_during_load: true
+      draggable: false
+      lazy_unload:
+        - unselected
+        - hidden
+      microphone:
+        disconnect_seconds: 180
+      auto_unmute:
+        - microphone
+        - visible
+        - selected
+    menu:
+      buttons:
+        frigate:
+          enabled: false
+        fullscreen:
+          enabled: false
+        media_player:
+          enabled: false
+        play:
+          enabled: false
+        microphone:
+          enabled: true
+          type: toggle
+        live:
+          enabled: false
+        mute:
+          enabled: true
+        snapshots:
+          enabled: false
+        clips:
+          enabled: false
+        download:
+          enabled: false
+        timeline:
+          enabled: false
+        expand:
+          enabled: false
+      style: outside
+      position: top
+      button_size: 85
+      alignment: right
+    dimensions:
+      aspect_ratio_mode: static
+      aspect_ratio: "16:9"
+  - type: horizontal-stack
+    cards:
+      - show_name: true
+        show_icon: true
+        type: button
+        entity: cover.street_gate
+        show_state: true
+        tap_action:
+          action: toggle
+          confirmation:
+            text: Are you sure you want to open the street gate?
+        hold_action:
+          action: toggle
+      - show_name: true
+        show_icon: true
+        type: button
+        entity: cover.doorbell_door
+        show_state: true
+        tap_action:
+          action: toggle
+          confirmation:
+            text: Are you sure you want to open the door?
+        hold_action:
+          action: toggle
+icon: mdi:doorbell-video
+type: custom:grid-layout
+layout:
+  mediaquery:
+    "(max-width: 1749px)":
+      grid-template-columns: 100%
+      place-content: center
+    "(min-width: 1750px)":
+      grid-template-columns: 60%
+      place-content: center

@@ -1,0 +1,111 @@
+alias: Doorbell ringed
+mode: single
+max_exceeded: silent
+trigger:
+  - platform: state
+    entity_id:
+      - binary_sensor.doorbell_dahua_button_pressed
+    to: "on"
+action:
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.doorbell_calling
+  - service: dahua.vto_cancel_call
+    target:
+      entity_id: camera.doorbell_dahua
+  - service: fully_kiosk.load_url
+    data:
+      url: http://home-assistant.local/lovelace/doorbell
+    target:
+      device_id: b5005de440d90c862538e61299d8d9f1
+  - if:
+      - condition: state
+        entity_id: sun.sun
+        state: below_horizon
+    then:
+      - service: media_player.volume_set
+        data:
+          volume_level: 0.6
+        target:
+          entity_id:
+            - media_player.kitchen_assistant
+            - media_player.bedroom_assistant
+    else:
+      - service: media_player.volume_set
+        data:
+          volume_level: 0.75
+        target:
+          entity_id:
+            - media_player.kitchen_assistant
+            - media_player.bedroom_assistant
+  - parallel:
+      - service: notify.all_mobile_devices
+        data:
+          message: Someone ringed the doorbell, please answer.
+          title: Doorbell ringing
+          data:
+            clickAction: /lovelace/doorbell
+            group: doorbell-ringing
+            tag: doorbell-ringing
+            channel: Doorbell
+            importance: high
+            priority: high
+            ttl: 0
+            vibrationPattern: 1000, 100, 1000, 100, 1000, 100
+            persistent: true
+            timeout: 120
+            visibility: public
+            image: /api/camera_proxy/camera.doorbell
+            actions:
+              - action: URI
+                title: Answer
+                uri: /lovelace/doorbell
+              - action: IGNORE
+                title: Ignore
+      - service: notify.all_tvs
+        data:
+          data:
+            image:
+              url: http://homeassistant.local:1984/api/frame.jpeg?src=doorbell
+            fontsize: max
+            transparency: 0%
+            duration: 15
+            interrupt: 0
+            color: black
+          title: Doorbell
+          message: Someone ringed the doorbell.
+      - service: notify.assistants
+        data:
+          message: Someone ringed the doorbell, please answer.
+  - service: switch.turn_on
+    target:
+      entity_id: switch.tablet_da_cozinha_screen
+  - delay:
+      seconds: 5
+  - if:
+      - condition: state
+        entity_id: sun.sun
+        state: above_horizon
+    then:
+      - repeat:
+          while:
+            - condition: state
+              entity_id: input_boolean.doorbell_calling
+              state: "on"
+            - condition: template
+              value_template: "{{ repeat.index <= 6 }}"
+          sequence:
+            - service: media_player.play_media
+              data:
+                media_content_id: http://homeassistant.local:8123/local/asterisk/ringtone.mp3
+                media_content_type: audio/mp3
+              target:
+                entity_id: media_player.tablet_da_cozinha
+            - delay:
+                seconds: 5
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.doorbell_calling
+  - alias: Wait some time to avoid button spamming
+    delay:
+      seconds: 15

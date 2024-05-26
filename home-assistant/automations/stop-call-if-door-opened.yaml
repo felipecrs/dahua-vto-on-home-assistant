@@ -1,0 +1,13 @@
+alias: Stop doorbell call if door or gate was opened
+mode: single
+trigger:
+  - platform: state
+    entity_id:
+      - cover.doorbell_door
+      - cover.street_gate
+    from: closed
+    to: open
+action:
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.doorbell_calling

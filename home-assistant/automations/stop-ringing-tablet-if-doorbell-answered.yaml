@@ -1,0 +1,12 @@
+alias: Stop ringing tablet if doorbell answered
+mode: single
+trigger:
+  - platform: state
+    entity_id:
+      - input_boolean.doorbell_calling
+    from: 'on'
+    to: 'off'
+action:
+  - service: media_player.media_stop
+    data:
+      entity_id: media_player.kitchen_tablet
