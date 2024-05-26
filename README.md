@@ -2,6 +2,10 @@
 
 This is my personal setup for using the Dahua VTO doorbell on Home Assistant.
 
+## Demo
+
+https://github.com/felipecrs/dahua-vto-on-home-assistant/assets/29582865/3aa5be77-995b-4858-91db-e60be104a70e
+
 ## Goals
 
 - No cloud services (no Dahua app)
@@ -46,5 +50,4 @@ So, right now, until I find a better solution, I am running Asterisk just to cre
 
 ## TODO
 
-- [ ] Add demo video
 - [ ] Explain Fully Kiosk Browser configurations made
