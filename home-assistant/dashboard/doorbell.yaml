@@ -149,9 +149,9 @@ icon: mdi:doorbell-video
 type: custom:grid-layout
 layout:
   mediaquery:
-    "(max-width: 1749px)":
+    "(max-width: 1499px)":
       grid-template-columns: 100%
       place-content: center
-    "(min-width: 1750px)":
+    "(min-width: 1500px)":
       grid-template-columns: 60%
       place-content: center
