@@ -39,7 +39,7 @@ action:
             - media_player.kitchen_assistant
             - media_player.bedroom_assistant
   - parallel:
-      - service: notify.all_mobile_devices
+      - service: notify.all_phones
         data:
           message: Someone ringed the doorbell, please answer.
           title: Doorbell ringing
