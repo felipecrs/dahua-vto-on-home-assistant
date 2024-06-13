@@ -1,6 +1,6 @@
 # Dahua VTO on Home Assistant
 
-This is my personal setup for using the Dahua VTO doorbell on Home Assistant.
+This is my personal setup for using the Dahua VTO doorbell on Home Assistant, with no VTH or cloud dependency.
 
 ## Demo
 
