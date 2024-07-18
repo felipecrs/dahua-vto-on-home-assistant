@@ -106,7 +106,7 @@ My dashboard is configured to use [layout-card](https://github.com/thomasloven/l
 
 ### Configuring Fully Kiosk Browser
 
-I configured [Fully Kiosk Browser](https://www.fully-kiosk.com/en/) several years ago in my tablet. I don't remember what exact settings I used. However, the important thing is to have the [Fully Kiosk Browser Home Assistant integration](https://www.home-assistant.io/integrations/fully_kiosk) configured, since it is used in the automations below.
+My [Fully Kiosk Browser](https://www.fully-kiosk.com/en/) `settings.json` can be found [here](./fully-kiosk-browser/fully-settings.json). Do not forget to have the [Fully Kiosk Browser Home Assistant integration](https://www.home-assistant.io/integrations/fully_kiosk) configured, since it is used in the automations below.
 
 ### Configuring Home Assistant
 
