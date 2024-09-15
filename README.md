@@ -45,7 +45,7 @@ Another caveat is the need of Frigate. The Frigate Card has support for go2rtc r
 - [Frigate](https://github.com/blakeblackshear/frigate) for object detection and recording
 - [go2rtc](https://github.com/AlexxIT/go2rtc) for 2-way audio communication, running inside Frigate
 - [Frigate Home Assistant integration](https://github.com/blakeblackshear/frigate-hass-integration), which allows the Frigate Card to communicate with go2rtc within Frigate without needing external exposure of the go2rtc server.
-- [Frigate Card](https://github.com/dermotduffy/frigate-hass-card/) for 2-way audio communication within the Home Assistant dashboard (currently using [305a2db](https://github.com/dermotduffy/frigate-hass-card/tree/305a2db573d16bb7a91da65e7792b116b12a33b8))
+- [Frigate Card](https://github.com/dermotduffy/frigate-hass-card/) for 2-way audio communication within the Home Assistant dashboard (currently using PR [#1536](https://github.com/dermotduffy/frigate-hass-card/pull/1536))
 - [Fully Kiosk Browser](https://www.fully-kiosk.com/) on a tablet for the doorbell interface
 - [Fully Kiosk Browser Home Assistant official integration](https://www.home-assistant.io/integrations/fully_kiosk/)
 - [layout-card](https://github.com/thomasloven/lovelace-layout-card/) to allow the doorbell dashboard to use full width of my tablet screen in vertical orientation, while still displaying other larger displays in horizontal orientation nicely.
@@ -92,7 +92,7 @@ In my case, I added such script to `/config/scripts/fix_vto_codecs.sh`. Make sur
 
 As of now, you will need a custom release of the Frigate card because this setup uses features which were not released yet.
 
-I am currently using the [305a2db](https://github.com/dermotduffy/frigate-hass-card/tree/305a2db573d16bb7a91da65e7792b116b12a33b8) git revision.
+I am currently using the the PR [#1536](https://github.com/dermotduffy/frigate-hass-card/pull/1536).
 
 You will need to manually build and install it.
 

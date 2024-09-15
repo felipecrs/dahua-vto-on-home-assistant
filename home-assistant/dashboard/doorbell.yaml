@@ -14,7 +14,7 @@ cards:
     elements:
       - type: custom:frigate-card-conditional
         conditions:
-          microphone:
+          - condition: microphone
             connected: false
         elements:
           - type: custom:frigate-card-menu-icon
@@ -27,9 +27,9 @@ cards:
                 frigate_card_action: microphone_unmute
       - type: custom:frigate-card-conditional
         conditions:
-          state:
-            - entity: input_boolean.doorbell_calling
-              state: "on"
+          - condition: state
+            state: "on"
+            entity: input_boolean.doorbell_calling
         elements:
           - type: custom:frigate-card-menu-icon
             icon: mdi:phone-hangup
@@ -37,13 +37,13 @@ cards:
             style:
               color: red
             tap_action:
-              - action: call-service
-                service: input_boolean.turn_off
+              - action: perform-action
                 data:
                   entity_id: input_boolean.doorbell_calling
+                perform_action: input_boolean.turn_off
       - type: custom:frigate-card-conditional
         conditions:
-          microphone:
+          - condition: microphone
             connected: true
         elements:
           - type: custom:frigate-card-menu-icon
@@ -53,26 +53,19 @@ cards:
               color: red
             tap_action:
               - action: custom:frigate-card-action
-                frigate_card_action: microphone_mute
-              - action: call-service
-                service: fully_kiosk.load_url
-                data:
-                  url: http://homeassistant.local:8123/lovelace/0
-                  device_id: b5005de440d90c862538e61299d8d9f1
+                frigate_card_action: microphone_disconnect
     automations:
       - conditions:
-          microphone:
+          - condition: microphone
             connected: true
         actions:
-          - action: call-service
-            service: input_boolean.turn_off
+          - action: perform-action
             data:
               entity_id: input_boolean.doorbell_calling
+            perform_action: input_boolean.turn_off
     live:
       controls:
         builtin: false
-        title:
-          mode: none
         thumbnails:
           mode: none
       zoomable: true
@@ -121,6 +114,8 @@ cards:
     dimensions:
       aspect_ratio_mode: static
       aspect_ratio: "16:9"
+    status_bar:
+      style: none
   - type: horizontal-stack
     cards:
       - show_name: true
