@@ -45,7 +45,7 @@ Another caveat is the need of Frigate. The Frigate Card has support for go2rtc r
 - [Frigate](https://github.com/blakeblackshear/frigate) for object detection and recording
 - [go2rtc](https://github.com/AlexxIT/go2rtc) for 2-way audio communication, running inside Frigate
 - [Frigate Home Assistant integration](https://github.com/blakeblackshear/frigate-hass-integration), which allows the Frigate Card to communicate with go2rtc within Frigate without needing external exposure of the go2rtc server.
-- [Frigate Card](https://github.com/dermotduffy/frigate-hass-card/) for 2-way audio communication within the Home Assistant dashboard (currently using PR [#1536](https://github.com/dermotduffy/frigate-hass-card/pull/1536))
+- [Frigate Card](https://github.com/dermotduffy/frigate-hass-card/) for 2-way audio communication within the Home Assistant dashboard (currently using PR [#1545](https://github.com/dermotduffy/frigate-hass-card/pull/1545))
 - [Fully Kiosk Browser](https://www.fully-kiosk.com/) on a tablet for the doorbell interface
 - [Fully Kiosk Browser Home Assistant official integration](https://www.home-assistant.io/integrations/fully_kiosk/)
 - [layout-card](https://github.com/thomasloven/lovelace-layout-card/) to allow the doorbell dashboard to use full width of my tablet screen in vertical orientation, while still displaying other larger displays in horizontal orientation nicely.
@@ -92,13 +92,13 @@ In my case, I added such script to `/config/scripts/fix_vto_codecs.sh`. Make sur
 
 As of now, you will need a custom release of the Frigate card because this setup uses features which were not released yet.
 
-I am currently using the the PR [#1536](https://github.com/dermotduffy/frigate-hass-card/pull/1536).
+I am currently using the the PR [#1545](https://github.com/dermotduffy/frigate-hass-card/pull/1545).
 
 You will need to manually build and install it.
 
-However, I did this and uploaded the Frigate Card files to [`www/custom/frigate-hass-card`](./www/custom/frigate-hass-card/). Hopefully it will make your life a life easier.
+However, I did this and uploaded the Frigate Card files to [`www/custom/frigate-hass-card`](./www/custom/frigate-hass-card/). Hopefully it will make your life a little easier.
 
-Instructions on how to install these files are [here](https://github.com/dermotduffy/frigate-hass-card?tab=readme-ov-file#advanced-users-manual-installation).
+Instructions on how to install these files are [here](https://card.camera/#/advanced-installation).
 
 The code for my dashboard with the Frigate Card configured can be found [here](./home-assistant/dashboard/doorbell.yaml).
 
