@@ -54,9 +54,9 @@ cards:
               color: red
             tap_action:
               - action: custom:frigate-card-action
-                frigate_card_action: microphone_mute
-              - action: custom:frigate-card-action
                 frigate_card_action: microphone_disconnect
+              - action: custom:frigate-card-action
+                frigate_card_action: mute
     automations:
       - conditions:
           - condition: microphone
