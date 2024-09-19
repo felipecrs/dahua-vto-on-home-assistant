@@ -78,7 +78,8 @@ cards:
         - unselected
         - hidden
       microphone:
-        disconnect_seconds: 180
+        disconnect_seconds: 120
+        mute_after_microphone_mute_seconds: 120
       auto_unmute:
         - microphone
     menu:
