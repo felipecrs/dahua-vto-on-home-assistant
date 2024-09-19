@@ -8,9 +8,10 @@ cards:
         image:
           refresh_seconds: 1
         go2rtc:
-          stream: doorbell_mic
           modes:
             - webrtc
+        dimensions:
+          aspect_ratio: "16:9"
     elements:
       - type: custom:frigate-card-conditional
         conditions:
@@ -53,6 +54,8 @@ cards:
               color: red
             tap_action:
               - action: custom:frigate-card-action
+                frigate_card_action: microphone_mute
+              - action: custom:frigate-card-action
                 frigate_card_action: microphone_disconnect
     automations:
       - conditions:
@@ -78,8 +81,6 @@ cards:
         disconnect_seconds: 180
       auto_unmute:
         - microphone
-        - visible
-        - selected
     menu:
       buttons:
         frigate:
@@ -101,19 +102,16 @@ cards:
           enabled: false
         clips:
           enabled: false
-        download:
-          enabled: false
         timeline:
           enabled: false
         expand:
+          enabled: false
+        cameras:
           enabled: false
       style: outside
       position: top
       button_size: 85
       alignment: right
-    dimensions:
-      aspect_ratio_mode: static
-      aspect_ratio: "16:9"
     status_bar:
       style: none
   - type: horizontal-stack
