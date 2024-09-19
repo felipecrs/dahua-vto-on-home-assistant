@@ -69,8 +69,6 @@ cards:
     live:
       controls:
         builtin: false
-        thumbnails:
-          mode: none
       zoomable: true
       show_image_during_load: true
       draggable: false
@@ -78,43 +76,36 @@ cards:
         - unselected
         - hidden
       microphone:
+        always_connected: false
         disconnect_seconds: 120
         mute_after_microphone_mute_seconds: 120
       auto_unmute:
         - microphone
     menu:
       buttons:
-        frigate:
+        snapshots:
           enabled: false
         fullscreen:
           enabled: false
-        media_player:
+        cameras:
           enabled: false
-        play:
+        live:
+          enabled: false
+        clips:
           enabled: false
         microphone:
           enabled: true
           type: toggle
-        live:
-          enabled: false
         mute:
           enabled: true
-        snapshots:
-          enabled: false
-        clips:
-          enabled: false
-        timeline:
-          enabled: false
-        expand:
-          enabled: false
-        cameras:
-          enabled: false
       style: outside
       position: top
       button_size: 85
       alignment: right
     status_bar:
       style: none
+    profiles:
+      - low-performance
   - type: horizontal-stack
     cards:
       - show_name: true
