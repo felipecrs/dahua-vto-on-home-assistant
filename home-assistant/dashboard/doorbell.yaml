@@ -21,6 +21,7 @@ cards:
           - type: custom:frigate-card-menu-icon
             icon: mdi:phone
             alignment: opposing
+            priority: 39
             style:
               color: green
             tap_action:
@@ -35,6 +36,7 @@ cards:
           - type: custom:frigate-card-menu-icon
             icon: mdi:phone-hangup
             alignment: opposing
+            priority: 40
             style:
               color: red
             tap_action:
@@ -50,6 +52,7 @@ cards:
           - type: custom:frigate-card-menu-icon
             icon: mdi:phone-hangup
             alignment: opposing
+            priority: 40
             style:
               color: red
             tap_action:
