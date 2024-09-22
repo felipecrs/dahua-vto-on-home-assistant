@@ -1,0 +1,29 @@
+alias: Toggle do not disturb
+mode: single
+trigger:
+  - platform: time
+    at: "22:00:00"
+    id: got-dark
+  - platform: time
+    at: "05:00:00"
+    id: got-light
+action:
+  - choose:
+      - conditions:
+          - condition: trigger
+            id:
+              - got-dark
+        sequence:
+          - action: input_boolean.turn_on
+            target:
+              entity_id:
+                - input_boolean.do_not_disturb
+      - conditions:
+          - condition: trigger
+            id:
+              - got-light
+        sequence:
+          - action: input_boolean.turn_off
+            target:
+              entity_id:
+                - input_boolean.do_not_disturb

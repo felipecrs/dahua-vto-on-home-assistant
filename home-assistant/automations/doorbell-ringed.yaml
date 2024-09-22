@@ -79,13 +79,13 @@ action:
           message: Someone ringed the doorbell, please answer.
   - service: switch.turn_on
     target:
-      entity_id: switch.tablet_da_cozinha_screen
+      entity_id: switch.kitchen_tablet_screen
   - delay:
       seconds: 5
   - if:
       - condition: state
-        entity_id: sun.sun
-        state: above_horizon
+        entity_id: input_boolean.do_not_disturb
+        state: "off"
     then:
       - repeat:
           while:
@@ -100,7 +100,7 @@ action:
                 media_content_id: http://homeassistant.local:8123/local/asterisk/ringtone.mp3
                 media_content_type: audio/mp3
               target:
-                entity_id: media_player.tablet_da_cozinha
+                entity_id: media_player.kitchen_tablet
             - delay:
                 seconds: 5
   - service: input_boolean.turn_off

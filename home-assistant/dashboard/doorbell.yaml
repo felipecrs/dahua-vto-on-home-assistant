@@ -60,6 +60,13 @@ cards:
                 frigate_card_action: microphone_disconnect
               - action: custom:frigate-card-action
                 frigate_card_action: mute
+      - type: custom:frigate-card-menu-state-icon
+        entity: input_boolean.do_not_disturb
+        state_color: true
+        tap_action:
+          action: toggle
+        alignment: opposing
+        priority: 41
     automations:
       - conditions:
           - condition: microphone
