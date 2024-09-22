@@ -6,6 +6,10 @@ My personal Dahua VTO doorbell setup in Home Assistant, with no VTH or cloud dep
 
 https://github.com/felipecrs/dahua-vto-on-home-assistant/assets/29582865/3aa5be77-995b-4858-91db-e60be104a70e
 
+## Screenshot
+
+![Dashboard example](https://github.com/user-attachments/assets/6927af3e-809e-445a-903c-583707ea0b1a)
+
 ## Goals
 
 - No cloud services (no Dahua app)
