@@ -2,7 +2,7 @@
 
 My personal Dahua VTO doorbell setup in Home Assistant, with no VTH or cloud dependency.
 
-![Doorbell card](https://github.com/user-attachments/assets/28100f21-e467-4bcf-b9ef-7cc0de6fb0bb)
+![Doorbell card](https://github.com/user-attachments/assets/30044679-223c-44b3-86dd-fc036f8f0649)
 
 ## Demo
 
@@ -116,7 +116,7 @@ The main one is [`doorbell-ringed.yaml`](./home-assistant/automations/doorbell-r
 
 For example, the first action is to cancel the call in the VTO. This is important so that 2-way audio communication can work well with go2rtc and the Frigate Card.
 
-You will need to [create two `input_boolean`s](https://www.home-assistant.io/integrations/input_boolean/) as well. In my automations they are named `input_boolean.doorbell_calling` and `input_boolean.do_not_disturb`.
+You will need to [create two `input_boolean`s](https://www.home-assistant.io/integrations/input_boolean/) as well. In my automations they are named `input_boolean.doorbell_calling` and `input_boolean.do_not_disturb` (suggested icon is `mdi:bell-off`).
 
 The integration also uses the [`ringtone.mp3`](./www/asterisk/ringtone.mp3) to emulate a call by playing it on the tablet. Make sure such file is in your `/config/www/asterisk/` folder.
 
