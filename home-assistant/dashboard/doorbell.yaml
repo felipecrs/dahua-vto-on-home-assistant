@@ -19,7 +19,7 @@ cards:
             connected: false
         elements:
           - type: custom:frigate-card-menu-icon
-            icon: mdi:phone
+            icon: mdi:phone-outgoing
             alignment: opposing
             priority: 39
             style:
