@@ -15,6 +15,24 @@ cards:
     elements:
       - type: custom:frigate-card-conditional
         conditions:
+          - condition: state
+            state: "on"
+            entity: input_boolean.doorbell_calling
+        elements:
+          - type: custom:frigate-card-menu-icon
+            icon: mdi:phone
+            alignment: opposing
+            priority: 39
+            style:
+              color: green
+            tap_action:
+              - action: custom:frigate-card-action
+                frigate_card_action: microphone_unmute
+      - type: custom:frigate-card-conditional
+        conditions:
+          - condition: state
+            state: "off"
+            entity: input_boolean.doorbell_calling
           - condition: microphone
             connected: false
         elements:
@@ -34,7 +52,7 @@ cards:
             entity: input_boolean.doorbell_calling
         elements:
           - type: custom:frigate-card-menu-icon
-            icon: mdi:phone-hangup
+            icon: mdi:phone-ring
             alignment: opposing
             priority: 40
             style:
@@ -46,6 +64,9 @@ cards:
                 perform_action: input_boolean.turn_off
       - type: custom:frigate-card-conditional
         conditions:
+          - condition: state
+            state: "off"
+            entity: input_boolean.doorbell_calling
           - condition: microphone
             connected: true
         elements:
