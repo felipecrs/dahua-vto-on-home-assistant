@@ -2,9 +2,19 @@
 
 My personal Dahua VTO doorbell setup in Home Assistant, with no VTH or cloud dependency.
 
-![Doorbell card](https://github.com/user-attachments/assets/30044679-223c-44b3-86dd-fc036f8f0649)
+## Demos
 
-## Demo
+### The card when the doorbell is ringing
+
+https://github.com/user-attachments/assets/cef14806-f0c4-4c4b-a5e0-5cdcab07ff95
+
+### The card when the doorbell is not ringing
+
+https://github.com/user-attachments/assets/0cc0a9d8-984f-4946-a7a1-14fab96c9920
+
+### The card in a tablet, combined with phone and TV notifications
+
+The card on this demo is slighty outdated.
 
 https://github.com/felipecrs/dahua-vto-on-home-assistant/assets/29582865/3aa5be77-995b-4858-91db-e60be104a70e
 
