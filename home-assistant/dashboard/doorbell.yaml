@@ -38,6 +38,7 @@ cards:
           enabled: false
         microphone:
           type: toggle
+          priority: 49
         mute:
           enabled: true
       style: outside
