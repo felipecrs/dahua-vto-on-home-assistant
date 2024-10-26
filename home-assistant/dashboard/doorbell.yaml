@@ -12,6 +12,45 @@ cards:
             - webrtc
         dimensions:
           aspect_ratio: "16:9"
+    live:
+      controls:
+        builtin: false
+      zoomable: true
+      show_image_during_load: true
+      draggable: false
+      lazy_unload:
+        - unselected
+        - hidden
+      microphone:
+        always_connected: false
+        disconnect_seconds: 120
+        mute_after_microphone_mute_seconds: 120
+      auto_unmute:
+        - microphone
+    menu:
+      buttons:
+        snapshots:
+          enabled: false
+        fullscreen:
+          enabled: false
+        cameras:
+          enabled: false
+        live:
+          enabled: false
+        clips:
+          enabled: false
+        microphone:
+          type: toggle
+        mute:
+          enabled: true
+      style: outside
+      position: top
+      button_size: 85
+      alignment: right
+    status_bar:
+      style: none
+    profiles:
+      - low-performance
     overrides:
       - conditions:
           - condition: microphone
@@ -101,45 +140,6 @@ cards:
           action: toggle
         alignment: opposing
         priority: 41
-    live:
-      controls:
-        builtin: false
-      zoomable: true
-      show_image_during_load: true
-      draggable: false
-      lazy_unload:
-        - unselected
-        - hidden
-      microphone:
-        always_connected: false
-        disconnect_seconds: 120
-        mute_after_microphone_mute_seconds: 120
-      auto_unmute:
-        - microphone
-    menu:
-      buttons:
-        snapshots:
-          enabled: false
-        fullscreen:
-          enabled: false
-        cameras:
-          enabled: false
-        live:
-          enabled: false
-        clips:
-          enabled: false
-        microphone:
-          type: toggle
-        mute:
-          enabled: true
-      style: outside
-      position: top
-      button_size: 85
-      alignment: right
-    status_bar:
-      style: none
-    profiles:
-      - low-performance
   - type: horizontal-stack
     cards:
       - show_name: true
