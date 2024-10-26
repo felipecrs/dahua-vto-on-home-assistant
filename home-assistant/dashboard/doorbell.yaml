@@ -7,9 +7,6 @@ cards:
         live_provider: go2rtc
         image:
           refresh_seconds: 1
-        go2rtc:
-          modes:
-            - webrtc
         dimensions:
           aspect_ratio: "16:9"
     live:
