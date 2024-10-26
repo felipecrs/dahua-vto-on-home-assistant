@@ -12,6 +12,15 @@ cards:
             - webrtc
         dimensions:
           aspect_ratio: "16:9"
+    overrides:
+      - conditions:
+          - condition: microphone
+            connected: true
+        merge:
+          menu:
+            buttons:
+              microphone:
+                enabled: true
     elements:
       - type: custom:frigate-card-conditional
         conditions:
@@ -26,6 +35,10 @@ cards:
             style:
               color: green
             tap_action:
+              - action: perform-action
+                data:
+                  entity_id: input_boolean.doorbell_calling
+                perform_action: input_boolean.turn_off
               - action: custom:frigate-card-action
                 frigate_card_action: microphone_unmute
       - type: custom:frigate-card-conditional
@@ -88,15 +101,6 @@ cards:
           action: toggle
         alignment: opposing
         priority: 41
-    automations:
-      - conditions:
-          - condition: microphone
-            connected: true
-        actions:
-          - action: perform-action
-            data:
-              entity_id: input_boolean.doorbell_calling
-            perform_action: input_boolean.turn_off
     live:
       controls:
         builtin: false
@@ -125,7 +129,6 @@ cards:
         clips:
           enabled: false
         microphone:
-          enabled: true
           type: toggle
         mute:
           enabled: true
