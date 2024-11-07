@@ -16,7 +16,8 @@ fi
 
 readonly vto_stream_url="${1}"
 
-vto_host_with_creds="${vto_stream_url#"rtsp://"}"
+vto_host_with_creds="${vto_stream_url#"ffmpeg:"}"
+vto_host_with_creds="${vto_host_with_creds#"rtsp://"}"
 vto_host_with_creds="${vto_host_with_creds%%"/"*}"
 readonly vto_host_with_creds
 
