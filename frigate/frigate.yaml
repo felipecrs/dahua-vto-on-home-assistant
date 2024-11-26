@@ -15,7 +15,7 @@ cameras:
   doorbell:
     ffmpeg:
       inputs:
-        - path: rtsp://127.0.0.1:8554/doorbell?video=copy
+        - path: rtsp://127.0.0.1:8554/doorbell?video=copy&backchannel=0
           input_args: preset-rtsp-restream-low-latency
           roles:
             - detect
