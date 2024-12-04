@@ -75,10 +75,15 @@ vto_host_with_creds="${vto_host_with_creds#"rtsp://"}"
 vto_host_with_creds="${vto_host_with_creds%%"/"*}"
 
 query="action=setConfig"
-# PCMA: good for webrtc and 2-way audio
+# PCMA: average audio quality, but good for WebRTC and 2-way audio
 query+="&Encode[0].MainFormat[0].Audio.Compression=G.711A"
-# AAC: good for Frigate
+query+="&Encode[0].MainFormat[0].Audio.Frequency=8000"
+# AAC: best audio quality, good for Frigate recordings
 query+="&Encode[0].ExtraFormat[0].Audio.Compression=AAC"
+
+# PS: the current config can be retrieved with:
+#   curl -fsSL --digest --globoff \
+#     http://user:pass@192.168.1.40/cgi-bin/configManager.cgi?action=getConfig&name=Encode
 
 output=$(
   curl --fail --silent --show-error --digest --globoff "${extra_curl_args[@]}" \
