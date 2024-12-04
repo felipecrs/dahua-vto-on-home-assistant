@@ -4,15 +4,17 @@ go2rtc:
       # H264
       - echo:/config/scripts/fix_vto_codecs.sh
         ffmpeg:rtsp://admin:pass@192.168.1.40/cam/realmonitor?channel=1&subtype=0#video=copy
-      # AAC, OPUS
-      - rtsp://127.0.0.1:8554/doorbell_hd?audio=all
       # PCMA, 2-way audio
       - echo:/config/scripts/fix_vto_codecs.sh
         rtsp://admin:pass@192.168.1.40/cam/realmonitor?channel=1&subtype=0&unicast=true&proto=Onvif#media=audio#backchannel=1
+      # AAC
+      - rtsp://127.0.0.1:8554/doorbell_hd?audio=aac
     doorbell_hd:
-      # H264, AAC, OPUS
+      # H264, AAC
       - echo:/config/scripts/fix_vto_codecs.sh
-        ffmpeg:rtsp://admin:pass@192.168.1.40/cam/realmonitor?channel=1&subtype=1#video=copy#audio=copy#audio=opus
+        ffmpeg:rtsp://admin:pass@192.168.1.40/cam/realmonitor?channel=1&subtype=1#video=copy#audio=copy
+      # PCMA
+      - rtsp://127.0.0.1:8554/doorbell?audio=pcma&backchannel=0
 
 cameras:
   doorbell:
