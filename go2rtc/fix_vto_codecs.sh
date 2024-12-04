@@ -58,9 +58,9 @@ if [[ $# -ne 1 ]]; then
   usage 1
 fi
 
-rtsp_vto_stream_url="${1}"
+vto_stream_url="${1}"
 
-if [[ "${rtsp_vto_stream_url}" != "rtsp://"* && "${rtsp_vto_stream_url}" != "ffmpeg:rtsp://"* ]]; then
+if [[ "${vto_stream_url}" != "rtsp://"* && "${vto_stream_url}" != "ffmpeg:rtsp://"* ]]; then
   echo "VTO stream URL does not start with rtsp:// or ffmpeg:rtsp://" >&2
   usage 1
 fi
@@ -70,7 +70,7 @@ if [[ "${debug}" == "true" ]]; then
   extra_curl_args+=("--verbose")
 fi
 
-vto_host_with_creds="${rtsp_vto_stream_url#"ffmpeg:"}"
+vto_host_with_creds="${vto_stream_url#"ffmpeg:"}"
 vto_host_with_creds="${vto_host_with_creds#"rtsp://"}"
 vto_host_with_creds="${vto_host_with_creds%%"/"*}"
 
@@ -96,4 +96,4 @@ if [[ "${output}" != $'OK\r' ]]; then
   exit 1
 fi
 
-echo -n "${rtsp_vto_stream_url}"
+echo -n "${vto_stream_url}"
