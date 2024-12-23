@@ -73,6 +73,9 @@ fi
 vto_host_with_creds="${vto_stream_url#"ffmpeg:"}"
 vto_host_with_creds="${vto_host_with_creds#"rtsp://"}"
 vto_host_with_creds="${vto_host_with_creds%%"/"*}"
+if [[ "${vto_host_with_creds}" =~ :[0-9]+$ ]]; then
+  vto_host_with_creds="${vto_host_with_creds%":"*}"
+fi
 
 query="action=setConfig"
 # PCMA: average audio quality, but good for WebRTC and 2-way audio
