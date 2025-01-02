@@ -40,28 +40,26 @@ I was using a fully SIP setup before, using Asterisk and the [SIP card](https://
 
 ## Caveats
 
-I could not yet get rid of Asterisk. Since I am not using a VTH, I still need Asterisk so that the doorbell can attempt to call a SIP extension.
+I could not yet [get rid of Asterisk](https://github.com/felipecrs/dahua-vto-on-home-assistant/issues/1). Since I am not using a VTH, I still need Asterisk so that the doorbell can attempt to call a SIP extension.
 
-And only in such case the button pressed event will be detected.
+And only in such case the button pressed event will be detected by the Home Assistant Dahua integration.
 
-So, right now, until I find a better solution, I am running Asterisk just to create a dummy extension for the doorbell to call.
-
-Another caveat is the need of Frigate. The Frigate Card has support for go2rtc running outside Frigate, but it will require you to expose your go2rtc to the internet (https://github.com/dermotduffy/frigate-hass-card/issues/1299). Theoretically it should work, but I never tried.
+So, until I find a better solution, I am running Asterisk to create a dummy extension for the doorbell to call.
 
 ## Components
 
 - Dahua VTO Doorbell VTO2202F-P-S2
 - Home Assistant server
-- [Asterisk add-on](https://github.com/TECH7Fox/asterisk-hass-addons) so that the button pressed event can be captured (refs https://github.com/rroller/dahua/issues/359), and also so that the doorbell can announce _Calling now_ when the button is pressed.
-- [Home Assistant Dahua integration](https://github.com/rroller/dahua) to capture the button pressed event, cancel the call after the button is pressed, and unlock the door.
+- [Dahua Home Assistant integration](https://github.com/rroller/dahua) to capture the button pressed event, cancel the call after the button is pressed, and unlock the door
+- [Asterisk add-on](https://github.com/TECH7Fox/asterisk-hass-addons) to get the [button pressed event](https://github.com/rroller/dahua/issues/359) by the Dahua integration, and also so that the doorbell can announce _Calling now_ when the button is pressed
 - [Frigate](https://github.com/blakeblackshear/frigate) for object detection and recording
-- [go2rtc](https://github.com/AlexxIT/go2rtc) for 2-way audio communication, running inside Frigate
-- [Frigate Home Assistant integration](https://github.com/blakeblackshear/frigate-hass-integration), which allows the Frigate Card to communicate with go2rtc within Frigate without needing external exposure of the go2rtc server.
-- [Frigate Card](https://github.com/dermotduffy/frigate-hass-card/) for 2-way audio communication within the Home Assistant dashboard (at least version [v6.0.0-beta.2](https://github.com/dermotduffy/frigate-hass-card/releases/tag/v6.0.0-beta.2))
+- [go2rtc](https://github.com/AlexxIT/go2rtc) for 2-way audio communication, running inside Frigate in this example
+- [Frigate Home Assistant integration](https://github.com/blakeblackshear/frigate-hass-integration), which allows the Frigate Card to communicate with go2rtc within Frigate without needing external exposure of the go2rtc server
+- [Frigate Card](https://github.com/dermotduffy/frigate-hass-card) for 2-way audio communication within the Home Assistant dashboard (at least version [6.0.0](https://github.com/dermotduffy/frigate-hass-card/releases/tag/v6.0.0))
 - [Fully Kiosk Browser](https://www.fully-kiosk.com/) on a tablet for the doorbell interface
 - [Fully Kiosk Browser Home Assistant official integration](https://www.home-assistant.io/integrations/fully_kiosk/)
-- [layout-card](https://github.com/thomasloven/lovelace-layout-card/) to allow the doorbell dashboard to use full width of my tablet screen in vertical orientation, while still displaying other larger displays in horizontal orientation nicely.
-- [Home Assistant companion app](https://companion.home-assistant.io/), to receive notifications when someone rings the doorbell
+- [layout-card](https://github.com/thomasloven/lovelace-layout-card/) to allow the doorbell dashboard to use full width of my tablet screen in vertical orientation, while still displaying other larger displays in horizontal orientation nicely
+- [Home Assistant companion app](https://companion.home-assistant.io), to receive notifications when someone rings the doorbell
 - [Notifications for Android TV Home Assistant integration](https://www.home-assistant.io/integrations/nfandroidtv/), to receive notifications on my TVs when someone rings the doorbell
 
 ## How to
@@ -88,11 +86,14 @@ It works well for me. I use the sub stream to record in Frigate.
 
 ### Configuring Frigate
 
-Nothing outside of the usual. You can check [Frigate docs](https://docs.frigate.video/).
+Nothing outside of the usual. You can check [Frigate docs](https://docs.frigate.video).
 
-The relevant section of my `frigate.yaml` can be [here](./frigate/frigate.yaml).
+The relevant section of my `frigate.yaml` can be found [here](./frigate/frigate.yaml).
 
 Make sure the [Frigate Home Assistant integration](https://docs.frigate.video/integrations/home-assistant) is also configured.
+
+> **Note**
+> This setup uses Frigate, but it is not strictly necessary. You can also use go2rtc in the Frigate Card without Frigate itself. You will need to use its [proxy functionality](https://card.camera/#/configuration/cameras/README?id=proxy) to make it work outside your local network.
 
 ### Configuring go2rtc
 
@@ -102,7 +103,7 @@ In my case, I added such script to `/config/scripts/fix_vto_codecs.sh`. Make sur
 
 ### Configuring the Frigate Card
 
-The minimum version of the Frigate Card required for this setup is [v6.0.0-beta.2](https://github.com/dermotduffy/frigate-hass-card/releases/tag/v6.0.0-beta.2).
+The minimum version of the Frigate Card required for this setup is [6.0.0](https://github.com/dermotduffy/frigate-hass-card/releases/tag/v6.0.0).
 
 The code for my dashboard with the Frigate Card configured can be found [here](./home-assistant/dashboard/doorbell.yaml).
 
@@ -110,21 +111,21 @@ My dashboard is configured to use [layout-card](https://github.com/thomasloven/l
 
 ### Configuring Fully Kiosk Browser
 
-My [Fully Kiosk Browser](https://www.fully-kiosk.com/en/) `settings.json` can be found [here](./fully-kiosk-browser/fully-settings.json). Do not forget to have the [Fully Kiosk Browser Home Assistant integration](https://www.home-assistant.io/integrations/fully_kiosk) configured, since it is used in the automations below.
+My [Fully Kiosk Browser](https://www.fully-kiosk.com) `settings.json` can be found [here](./fully-kiosk-browser/fully-settings.json). Do not forget to have the [Fully Kiosk Browser official Home Assistant integration](https://www.home-assistant.io/integrations/fully_kiosk) configured, since it is used in the automations.
 
 ### Configuring Home Assistant
 
 Make sure to have the [Home Assistant Dahua integration](https://github.com/rroller/dahua) configured.
 
-Then, everything is handled through Home Assistant automations.
+Then, pretty much everything is orchestrated through Home Assistant automations.
 
 I left a reference of my automations [here](./home-assistant/automations/).
 
-You can manually pick all the ones you want, and then edit them to fit your needs.
+You can pick the ones you want, and then edit them to fit your needs.
 
-The main one is [`doorbell-ringed.yaml`](./home-assistant/automations/doorbell-ringed.yaml), which starts when someone rings the VTO and performs the necessary actions like you saw in the demo video.
+The main one is [`doorbell-ringed.yaml`](./home-assistant/automations/doorbell-ringed.yaml), which starts when someone rings the doorbell and performs the necessary actions like you saw in the demo video.
 
-For example, the first action is to cancel the call in the VTO. This is important so that 2-way audio communication can work well with go2rtc and the Frigate Card.
+For example, the first action is to cancel the call in the VTO. This is important so that 2-way audio communication can work well within go2rtc and the Frigate Card.
 
 You will need to [create two `input_boolean`s](https://www.home-assistant.io/integrations/input_boolean/) as well. In my automations they are named `input_boolean.doorbell_calling` and `input_boolean.do_not_disturb` (suggested icon is `mdi:bell-off`).
 
