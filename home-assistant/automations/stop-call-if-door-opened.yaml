@@ -7,6 +7,10 @@ trigger:
       - cover.street_gate
     from: closed
     to: open
+conditions:
+  - condition: state
+    entity_id: input_boolean.doorbell_calling
+    state: "on"
 action:
   - service: input_boolean.turn_off
     target:
