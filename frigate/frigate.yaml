@@ -16,6 +16,10 @@ go2rtc:
       # PCMA
       - rtsp://127.0.0.1:8554/doorbell?audio=pcma&backchannel=0
 
+# FFmpeg 7.0 (Frigate 0.15) errors a lot on this device
+ffmpeg:
+  path: "5.0"
+
 cameras:
   doorbell:
     ffmpeg:
