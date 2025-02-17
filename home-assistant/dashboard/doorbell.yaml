@@ -1,7 +1,7 @@
 title: Doorbell
 path: doorbell
 cards:
-  - type: custom:frigate-card
+  - type: custom:advanced-camera-card
     cameras:
       - camera_entity: camera.doorbell
         live_provider: go2rtc
@@ -59,13 +59,13 @@ cards:
               microphone:
                 enabled: true
     elements:
-      - type: custom:frigate-card-conditional
+      - type: custom:advanced-camera-card-conditional
         conditions:
           - condition: state
             state: "on"
             entity: input_boolean.doorbell_calling
         elements:
-          - type: custom:frigate-card-menu-icon
+          - type: custom:advanced-camera-card-menu-icon
             icon: mdi:phone
             alignment: opposing
             priority: 39
@@ -76,9 +76,9 @@ cards:
                 data:
                   entity_id: input_boolean.doorbell_calling
                 perform_action: input_boolean.turn_off
-              - action: custom:frigate-card-action
-                frigate_card_action: microphone_unmute
-      - type: custom:frigate-card-conditional
+              - action: custom:advanced-camera-card-action
+                advanced_camera_card_action: microphone_unmute
+      - type: custom:advanced-camera-card-conditional
         conditions:
           - condition: state
             state: "off"
@@ -86,22 +86,22 @@ cards:
           - condition: microphone
             connected: false
         elements:
-          - type: custom:frigate-card-menu-icon
+          - type: custom:advanced-camera-card-menu-icon
             icon: mdi:phone-outgoing
             alignment: opposing
             priority: 39
             style:
               color: green
             tap_action:
-              - action: custom:frigate-card-action
-                frigate_card_action: microphone_unmute
-      - type: custom:frigate-card-conditional
+              - action: custom:advanced-camera-card-action
+                advanced_camera_card_action: microphone_unmute
+      - type: custom:advanced-camera-card-conditional
         conditions:
           - condition: state
             state: "on"
             entity: input_boolean.doorbell_calling
         elements:
-          - type: custom:frigate-card-menu-icon
+          - type: custom:advanced-camera-card-menu-icon
             icon: mdi:phone-ring
             alignment: opposing
             priority: 40
@@ -112,7 +112,7 @@ cards:
                 data:
                   entity_id: input_boolean.doorbell_calling
                 perform_action: input_boolean.turn_off
-      - type: custom:frigate-card-conditional
+      - type: custom:advanced-camera-card-conditional
         conditions:
           - condition: state
             state: "off"
@@ -120,18 +120,18 @@ cards:
           - condition: microphone
             connected: true
         elements:
-          - type: custom:frigate-card-menu-icon
+          - type: custom:advanced-camera-card-menu-icon
             icon: mdi:phone-hangup
             alignment: opposing
             priority: 40
             style:
               color: red
             tap_action:
-              - action: custom:frigate-card-action
-                frigate_card_action: microphone_disconnect
-              - action: custom:frigate-card-action
-                frigate_card_action: mute
-      - type: custom:frigate-card-menu-state-icon
+              - action: custom:advanced-camera-card-action
+                advanced_camera_card_action: microphone_disconnect
+              - action: custom:advanced-camera-card-action
+                advanced_camera_card_action: mute
+      - type: custom:advanced-camera-card-menu-state-icon
         entity: input_boolean.do_not_disturb
         state_color: true
         tap_action:

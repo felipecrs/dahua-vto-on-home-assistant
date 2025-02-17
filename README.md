@@ -54,8 +54,8 @@ So, until I find a better solution, I am running Asterisk to create a dummy exte
 - [Asterisk add-on](https://github.com/TECH7Fox/asterisk-hass-addons) to get the [button pressed event](https://github.com/rroller/dahua/issues/359) by the Dahua integration, and also so that the doorbell can announce _Calling now_ when the button is pressed
 - [Frigate](https://github.com/blakeblackshear/frigate) for object detection and recording
 - [go2rtc](https://github.com/AlexxIT/go2rtc) for 2-way audio communication, running inside Frigate in this example
-- [Frigate Home Assistant integration](https://github.com/blakeblackshear/frigate-hass-integration), which allows the Frigate Card to communicate with go2rtc within Frigate without needing external exposure of the go2rtc server
-- [Frigate Card](https://github.com/dermotduffy/frigate-hass-card) for 2-way audio communication within the Home Assistant dashboard (at least version [6.0.0](https://github.com/dermotduffy/frigate-hass-card/releases/tag/v6.0.0))
+- [Frigate Home Assistant integration](https://github.com/blakeblackshear/frigate-hass-integration), which allows the Advanced Camera Card to communicate with go2rtc within Frigate without needing external exposure of the go2rtc server
+- [Advanced Camera Card](https://github.com/dermotduffy/advanced-camera-card) for 2-way audio communication within the Home Assistant dashboard (at least version [7.0.0](https://github.com/dermotduffy/advanced-camera-card/releases/tag/v7.0.0))
 - [Fully Kiosk Browser](https://www.fully-kiosk.com/) on a tablet for the doorbell interface
 - [Fully Kiosk Browser Home Assistant official integration](https://www.home-assistant.io/integrations/fully_kiosk/)
 - [layout-card](https://github.com/thomasloven/lovelace-layout-card/) to allow the doorbell dashboard to use full width of my tablet screen in vertical orientation, while still displaying other larger displays in horizontal orientation nicely
@@ -93,7 +93,7 @@ The relevant section of my `frigate.yaml` can be found [here](./frigate/frigate.
 Make sure the [Frigate Home Assistant integration](https://docs.frigate.video/integrations/home-assistant) is also configured.
 
 > **Note**
-> This setup uses Frigate, but it is not strictly necessary. You can also use go2rtc in the Frigate Card without Frigate itself. You will need to use its [proxy functionality](https://card.camera/#/configuration/cameras/README?id=proxy) to make it work outside your local network.
+> This setup uses Frigate, but it is not strictly necessary. You can also use go2rtc in the Advanced Camera Card without Frigate itself. You will need to use its [proxy functionality](https://card.camera/#/configuration/cameras/README?id=proxy) to make it work outside your local network.
 
 ### Configuring go2rtc
 
@@ -101,11 +101,11 @@ go2rtc runs inside Frigate in this setup. The go2rtc configuration is included i
 
 In my case, I added such script to `/config/scripts/fix_vto_codecs.sh`. Make sure it has execution permission with `chmod +x /config/scripts/fix_vto_codecs.sh`, otherwise go2rtc will not be able to execute it.
 
-### Configuring the Frigate Card
+### Configuring the Advanced Camera Card
 
-The minimum version of the Frigate Card required for this setup is [6.0.0](https://github.com/dermotduffy/frigate-hass-card/releases/tag/v6.0.0).
+The minimum version of the Advanced Camera Card required for this setup is [7.0.0](https://github.com/dermotduffy/advanced-camera-card/releases/tag/v7.0.0).
 
-The code for my dashboard with the Frigate Card configured can be found [here](./home-assistant/dashboard/doorbell.yaml).
+The code for my dashboard with the Advanced Camera Card configured can be found [here](./home-assistant/dashboard/doorbell.yaml).
 
 My dashboard is configured to use [layout-card](https://github.com/thomasloven/lovelace-layout-card/), but you are free to make it use other dashboard types.
 
@@ -125,7 +125,7 @@ You can pick the ones you want, and then edit them to fit your needs.
 
 The main one is [`doorbell-ringed.yaml`](./home-assistant/automations/doorbell-ringed.yaml), which starts when someone rings the doorbell and performs the necessary actions like you saw in the demo video.
 
-For example, the first action is to cancel the call in the VTO. This is important so that 2-way audio communication can work well within go2rtc and the Frigate Card.
+For example, the first action is to cancel the call in the VTO. This is important so that 2-way audio communication can work well within go2rtc and the Advanced Camera Card.
 
 You will need to [create two `input_boolean`s](https://www.home-assistant.io/integrations/input_boolean/) as well. In my automations they are named `input_boolean.doorbell_calling` and `input_boolean.do_not_disturb` (suggested icon is `mdi:bell-off`).
 
