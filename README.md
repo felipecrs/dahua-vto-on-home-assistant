@@ -101,6 +101,8 @@ go2rtc runs inside Frigate in this setup. The go2rtc configuration is included i
 
 In my case, I added such script to `/config/scripts/fix_vto_codecs.sh`. Make sure it has execution permission with `chmod +x /config/scripts/fix_vto_codecs.sh`, otherwise go2rtc will not be able to execute it.
 
+Note the script provides a `--https` flag in case your VTO has HTTPS enabled. Mine doesn't.
+
 ### Configuring the Advanced Camera Card
 
 The minimum version of the Advanced Camera Card required for this setup is [7.0.0](https://github.com/dermotduffy/advanced-camera-card/releases/tag/v7.0.0).

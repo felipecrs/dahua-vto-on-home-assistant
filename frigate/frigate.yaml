@@ -1,5 +1,6 @@
 go2rtc:
   streams:
+    # Note: if your VTO has HTTPS enabled, make sure to add --https after fix_vto_codecs.sh
     doorbell:
       # H264
       - echo:/config/scripts/fix_vto_codecs.sh
