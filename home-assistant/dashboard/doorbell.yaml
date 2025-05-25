@@ -1,5 +1,12 @@
 title: Doorbell
 path: doorbell
+icon: mdi:doorbell-video
+type: custom:grid-layout
+layout:
+  mediaquery:
+    "(orientation: landscape)":
+      grid-template-columns: 55%
+      place-content: center
 cards:
   - type: custom:advanced-camera-card
     cameras:
@@ -164,13 +171,3 @@ cards:
             text: Are you sure you want to open the door?
         hold_action:
           action: toggle
-icon: mdi:doorbell-video
-type: custom:grid-layout
-layout:
-  mediaquery:
-    "(max-width: 1499px)":
-      grid-template-columns: 100%
-      place-content: center
-    "(min-width: 1500px)":
-      grid-template-columns: 60%
-      place-content: center
