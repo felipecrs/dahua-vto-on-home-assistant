@@ -9,6 +9,8 @@ cards:
           refresh_seconds: 1
         dimensions:
           aspect_ratio: "16:9"
+          layout:
+            fit: fill
     live:
       controls:
         builtin: false
