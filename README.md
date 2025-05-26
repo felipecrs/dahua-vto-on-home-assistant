@@ -55,9 +55,9 @@ So, until I find a better solution, I am running Asterisk to create a dummy exte
 - [Frigate](https://github.com/blakeblackshear/frigate) for object detection and recording
 - [go2rtc](https://github.com/AlexxIT/go2rtc) for 2-way audio communication, running inside Frigate in this example
 - [Frigate Home Assistant integration](https://github.com/blakeblackshear/frigate-hass-integration), which allows the Advanced Camera Card to communicate with go2rtc within Frigate without needing external exposure of the go2rtc server
-- [Advanced Camera Card](https://github.com/dermotduffy/advanced-camera-card) for 2-way audio communication within the Home Assistant dashboard (at least version [7.0.0](https://github.com/dermotduffy/advanced-camera-card/releases/tag/v7.0.0))
+- [Advanced Camera Card](https://github.com/dermotduffy/advanced-camera-card) for 2-way audio communication within the Home Assistant dashboard
 - [Fully Kiosk Browser](https://www.fully-kiosk.com/) on a tablet for the doorbell interface
-- [Fully Kiosk Browser Home Assistant official integration](https://www.home-assistant.io/integrations/fully_kiosk/)
+- [Fully Kiosk Browser Home Assistant official integration](https://www.home-assistant.io/integrations/fully_kiosk/) to control the tablet from Home Assistant, like turning its screen on, navigating to the doorbell dashboard page, and ringing
 - [layout-card](https://github.com/thomasloven/lovelace-layout-card/) to allow the doorbell dashboard to use full width of my tablet screen in vertical orientation, while still displaying other larger displays in horizontal orientation nicely
 - [Home Assistant companion app](https://companion.home-assistant.io), to receive notifications when someone rings the doorbell
 - [Notifications for Android TV Home Assistant integration](https://www.home-assistant.io/integrations/nfandroidtv/), to receive notifications on my TVs when someone rings the doorbell
@@ -86,28 +86,26 @@ It works well for me. I use the sub stream to record in Frigate.
 
 ### Configuring Frigate
 
-Nothing outside of the usual. You can check [Frigate docs](https://docs.frigate.video).
+I am using Frigate 0.16 Beta. Beyond that, nothing outside of the usual. You can check [Frigate 0.16 Beta docs](https://deploy-preview-16390--frigate-docs.netlify.app/).
 
-The relevant section of my `frigate.yaml` can be found [here](./frigate/frigate.yaml).
+The relevant section of my Frigate configuration file can be found [here](./frigate/config.yaml).
 
-Make sure the [Frigate Home Assistant integration](https://docs.frigate.video/integrations/home-assistant) is also configured.
+Make sure the [Frigate Home Assistant integration](https://docs.frigate.video/integrations/home-assistant) is also configured, it is needed for Advanced Camera Card.
 
 > **Note**
-> This setup uses Frigate, but it is not strictly necessary. You can also use go2rtc in the Advanced Camera Card without Frigate itself. You will need to use its [proxy functionality](https://card.camera/#/configuration/cameras/README?id=proxy) to make it work outside your local network.
+> Support for making this work without Frigate is being tracked [here](https://github.com/dermotduffy/advanced-camera-card/issues/1984). It can already be done (Advanced Camera Card supports arbitrary go2rtc URLs), but you would need to protect and expose your go2rtc server to the world, which is not ideal.
 
 ### Configuring go2rtc
 
-go2rtc runs inside Frigate in this setup. The go2rtc configuration is included in the Frigate configuration. The important thing here is to use the [`fix_vto_codecs.sh`](./go2rtc/fix_vto_codecs.sh) script to `echo` your VTO RTSP URLs.
+go2rtc runs inside Frigate 0.16 Beta in this setup. The go2rtc configuration is part of the Frigate configuration itself. The important thing here is to use the [`fix_vto_codecs.sh`](./frigate/fix_vto_codecs.sh) script to `echo` your VTO RTSP URLs.
 
-In my case, I added such script to `/config/scripts/fix_vto_codecs.sh`. Make sure it has execution permission with `chmod +x /config/scripts/fix_vto_codecs.sh`, otherwise go2rtc will not be able to execute it.
+In my case, I added such script to `/addon_configs/ccab4aaf_frigate-beta/fix_vto_codecs.sh`. Make sure it has execution permission with `chmod +x /addon_configs/ccab4aaf_frigate-beta/fix_vto_codecs.sh`, otherwise go2rtc will not be able to execute it.
 
 Note the script provides a `--https` flag in case your VTO has HTTPS enabled. Mine doesn't.
 
 ### Configuring the Advanced Camera Card
 
-The minimum version of the Advanced Camera Card required for this setup is [7.0.0](https://github.com/dermotduffy/advanced-camera-card/releases/tag/v7.0.0).
-
-The code for my dashboard with the Advanced Camera Card configured can be found [here](./home-assistant/dashboard/doorbell.yaml).
+The code for my dashboard with the Advanced Camera Card configured can be found [here](./home-assistant/dashboards/doorbell.yaml).
 
 My dashboard is configured to use [layout-card](https://github.com/thomasloven/lovelace-layout-card/), but you are free to make it use other dashboard types.
 
@@ -131,7 +129,7 @@ For example, the first action is to cancel the call in the VTO. This is importan
 
 You will need to [create two `input_boolean`s](https://www.home-assistant.io/integrations/input_boolean/) as well. In my automations they are named `input_boolean.doorbell_calling` and `input_boolean.do_not_disturb` (suggested icon is `mdi:bell-off`).
 
-The integration also uses the [`ringtone.mp3`](./www/asterisk/ringtone.mp3) to emulate a call by playing it on the tablet. Make sure such file is in your `/config/www/asterisk/` folder.
+The integration also uses the [`ringtone.mp3`](./home-assistant/www/asterisk/ringtone.mp3) to emulate a call by playing it on the tablet. Make sure such file is in your `/config/www/asterisk/` folder.
 
 I created notification groups for my mobile devices and for my TVs to simplify my automation. If you want to do the same, it's as simple as adding this to your Home Assistant `configuration.yaml`:
 

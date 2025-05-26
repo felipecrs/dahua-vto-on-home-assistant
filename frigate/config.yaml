@@ -3,27 +3,25 @@ go2rtc:
     # Note: if your VTO has HTTPS enabled, make sure to add --https after fix_vto_codecs.sh
     doorbell:
       # H264
-      - echo:/config/scripts/fix_vto_codecs.sh
+      - echo:/config/fix_vto_codecs.sh
         ffmpeg:rtsp://admin:pass@192.168.1.40/cam/realmonitor?channel=1&subtype=0#video=copy
       # PCMA, 2-way audio
-      - echo:/config/scripts/fix_vto_codecs.sh
+      - echo:/config/fix_vto_codecs.sh
         rtsp://admin:pass@192.168.1.40/cam/realmonitor?channel=1&subtype=0&unicast=true&proto=Onvif#media=audio#backchannel=1
       # AAC
       - rtsp://127.0.0.1:8554/doorbell_hd?audio=aac
     doorbell_hd:
       # H264, AAC
-      - echo:/config/scripts/fix_vto_codecs.sh
+      - echo:/config/fix_vto_codecs.sh
         ffmpeg:rtsp://admin:pass@192.168.1.40/cam/realmonitor?channel=1&subtype=1#video=copy#audio=copy
       # PCMA
       - rtsp://127.0.0.1:8554/doorbell?audio=pcma&backchannel=0
 
-# FFmpeg 7.0 (Frigate 0.15) errors a lot on this device
-ffmpeg:
-  path: "5.0"
-
 cameras:
   doorbell:
     ffmpeg:
+      # FFmpeg 7.0 errors a lot on this device
+      path: "5.0"
       inputs:
         - path: rtsp://127.0.0.1:8554/doorbell?video=copy&backchannel=0
           input_args: preset-rtsp-restream-low-latency
