@@ -12,7 +12,7 @@ condition:
         value_template: >
           {{ (as_timestamp(now()) - as_timestamp(states.input_boolean.doorbell_calling.last_changed)) <= 60 }}
 action:
-  - service: dahua.vto_open_door
+  - action: dahua.vto_open_door
     target:
       entity_id: camera.doorbell_dahua_main
     data:

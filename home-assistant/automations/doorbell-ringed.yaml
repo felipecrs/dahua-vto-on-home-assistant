@@ -7,10 +7,10 @@ trigger:
       - input_boolean.doorbell_calling
     to: "on"
 action:
-  - service: dahua.vto_cancel_call
+  - action: dahua.vto_cancel_call
     target:
       entity_id: camera.doorbell_dahua_main
-  - service: fully_kiosk.load_url
+  - action: fully_kiosk.load_url
     data:
       url: http://home-assistant.local/lovelace/doorbell
     target:
@@ -20,7 +20,7 @@ action:
         entity_id: sun.sun
         state: below_horizon
     then:
-      - service: media_player.volume_set
+      - action: media_player.volume_set
         data:
           volume_level: 0.6
         target:
@@ -28,7 +28,7 @@ action:
             - media_player.kitchen_assistant
             - media_player.bedroom_assistant
     else:
-      - service: media_player.volume_set
+      - action: media_player.volume_set
         data:
           volume_level: 0.75
         target:
@@ -36,7 +36,7 @@ action:
             - media_player.kitchen_assistant
             - media_player.bedroom_assistant
   - parallel:
-      - service: notify.all_phones
+      - action: notify.all_phones
         data:
           message: Someone ringed the doorbell, please answer.
           title: Doorbell ringing
@@ -59,7 +59,7 @@ action:
                 uri: /lovelace/doorbell
               - action: IGNORE
                 title: Ignore
-      - service: notify.all_tvs
+      - action: notify.all_tvs
         data:
           data:
             image:
@@ -71,10 +71,10 @@ action:
             color: black
           title: Doorbell
           message: Someone ringed the doorbell.
-      - service: notify.assistants
+      - action: notify.assistants
         data:
           message: Someone ringed the doorbell, please answer.
-  - service: switch.turn_on
+  - action: switch.turn_on
     target:
       entity_id: switch.kitchen_tablet_screen
   - delay:
@@ -92,7 +92,7 @@ action:
             - condition: template
               value_template: "{{ repeat.index <= 6 }}"
           sequence:
-            - service: media_player.play_media
+            - action: media_player.play_media
               data:
                 media_content_id: http://homeassistant.local:8123/local/asterisk/ringtone.mp3
                 media_content_type: audio/mp3
@@ -100,7 +100,7 @@ action:
                 entity_id: media_player.kitchen_tablet
             - delay:
                 seconds: 5
-  - service: input_boolean.turn_off
+  - action: input_boolean.turn_off
     target:
       entity_id: input_boolean.doorbell_calling
   - alias: Wait some time to avoid button spamming

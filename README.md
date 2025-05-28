@@ -140,11 +140,11 @@ notify:
   - name: all_phones
     platform: group
     services:
-      - service: mobile_app_phone_a
-      - service: mobile_app_phone_b
+      - action: mobile_app_phone_a
+      - action: mobile_app_phone_b
   - name: all_tvs
     platform: group
     services:
-      - service: kitchen_tv
-      - service: bedroom_tv
+      - action: kitchen_tv
+      - action: bedroom_tv
 ```

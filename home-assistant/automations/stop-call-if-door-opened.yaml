@@ -12,6 +12,6 @@ conditions:
     entity_id: input_boolean.doorbell_calling
     state: "on"
 action:
-  - service: input_boolean.turn_off
+  - action: input_boolean.turn_off
     target:
       entity_id: input_boolean.doorbell_calling
