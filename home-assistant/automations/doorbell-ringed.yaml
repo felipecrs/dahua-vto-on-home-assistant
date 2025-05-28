@@ -4,15 +4,12 @@ max_exceeded: silent
 trigger:
   - platform: state
     entity_id:
-      - binary_sensor.doorbell_dahua_button_pressed
+      - input_boolean.doorbell_calling
     to: "on"
 action:
-  - service: input_boolean.turn_on
-    target:
-      entity_id: input_boolean.doorbell_calling
   - service: dahua.vto_cancel_call
     target:
-      entity_id: camera.doorbell_dahua
+      entity_id: camera.doorbell_dahua_main
   - service: fully_kiosk.load_url
     data:
       url: http://home-assistant.local/lovelace/doorbell
