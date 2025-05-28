@@ -7,9 +7,6 @@ trigger:
       - input_boolean.doorbell_calling
     to: "on"
 action:
-  - action: dahua.vto_cancel_call
-    target:
-      entity_id: camera.doorbell_dahua_main
   - action: fully_kiosk.load_url
     data:
       url: http://home-assistant.local/lovelace/doorbell
