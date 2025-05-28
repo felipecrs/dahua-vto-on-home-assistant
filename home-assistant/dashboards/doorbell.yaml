@@ -67,6 +67,15 @@ cards:
             buttons:
               microphone:
                 enabled: true
+    automations:
+      - conditions:
+          - condition: microphone
+            connected: true
+        actions:
+          - action: perform-action
+            perform_action: dahua.vto_cancel_call
+            data:
+              entity_id: camera.doorbell_dahua_main
     elements:
       - type: custom:advanced-camera-card-conditional
         conditions:
