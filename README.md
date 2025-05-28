@@ -40,18 +40,16 @@ I was using a fully SIP setup before, using Asterisk and the [SIP card](https://
 
 ## Caveats
 
-I could not yet [get rid of Asterisk](https://github.com/felipecrs/dahua-vto-on-home-assistant/issues/1). Since I am not using a VTH, I still need Asterisk so that the doorbell can attempt to call a SIP extension.
+The VTO needs a SIP number to call when someone rings it, and since I don't have a VTH, I'm using Asterisk fill that gap.
 
-And only in such case the button pressed event will be detected by the Home Assistant Dahua integration.
-
-So, until I find a better solution, I am running Asterisk to create a dummy extension for the doorbell to call.
+In this setup, Asterisk will also be used to trigger the automation in Home Assistant once someone rings the doorbell. You can use Dahua Integration's `binary_sensor.button_pressed` as well, but I found Asterisk to be both more reliable and more importantly: faster.
 
 ## Components
 
 - Dahua VTO Doorbell VTO2202F-P-S2
-- Home Assistant server
-- [Dahua Home Assistant integration](https://github.com/rroller/dahua) to capture the button pressed event, cancel the call after the button is pressed, and unlock the door
-- [Asterisk add-on](https://github.com/TECH7Fox/asterisk-hass-addons) to get the [button pressed event](https://github.com/rroller/dahua/issues/359) by the Dahua integration, and also so that the doorbell can announce _Calling now_ when the button is pressed
+- Home Assistant (running through Home Assistant Operating System in this setup)
+- [Dahua Home Assistant integration](https://github.com/rroller/dahua) to cancel the VTO call and to unlock the door
+- [Asterisk add-on](https://github.com/TECH7Fox/asterisk-hass-addons) to receive the VTO call when someone rings it, and fire the Home Assistant automation
 - [Frigate](https://github.com/blakeblackshear/frigate) for object detection and recording
 - [go2rtc](https://github.com/AlexxIT/go2rtc) for 2-way audio communication, running inside Frigate in this example
 - [Frigate Home Assistant integration](https://github.com/blakeblackshear/frigate-hass-integration), which allows the Advanced Camera Card to communicate with go2rtc within Frigate without needing external exposure of the go2rtc server
@@ -68,9 +66,13 @@ This is not a step-by-step guide. This is just a reference for the specific conf
 
 ### Configuring Asterisk
 
-You need to [install the Asterisk add-on](https://github.com/TECH7Fox/asterisk-hass-addons/blob/main/asterisk/DOCS.md) and then add a PJSIP extension for the VTO. Also, you need a "virtual" number/extension for the VTO to call to. The VTO will later connect to Asterisk and when someone rings it, it will call such number.
+You need to [install the Asterisk add-on](https://github.com/TECH7Fox/asterisk-hass-addons/blob/main/asterisk/DOCS.md) and then add a PJSIP extension for the VTO. Also, you need a number/extension for the VTO to call to. The VTO connect to Asterisk and when someone rings it, it will call Asterisk using that number/extension.
 
-The relevant Asterisk configuration files can be found at [`asterisk/custom`](./asterisk/custom/).
+When Asterisk receives the call, it will fire the Home Assistant automation. This is done through a script that calls Home Assistant's REST API to turn the `input_boolean.doorbell_calling` on, which then triggers the automation that handles the doorbell ring.
+
+The relevant Asterisk files, including the script mentioned above, can be found at [`asterisk`](./asterisk/).
+
+In my case, these files are added to `/addon_configs/b35499aa_asterisk/asterisk`. Don't forget to add execution permissions to the script with `chmod +x /addon_configs/b35499aa_asterisk/asterisk/perform_ha_action.sh`, otherwise Asterisk will not be able to execute it.
 
 ### Configuring the VTO
 
@@ -115,7 +117,7 @@ My [Fully Kiosk Browser](https://www.fully-kiosk.com) `settings.json` can be fou
 
 ### Configuring Home Assistant
 
-Make sure to have the [Home Assistant Dahua integration](https://github.com/rroller/dahua) configured.
+Make sure to have the [Home Assistant Dahua integration](https://github.com/rroller/dahua) configured, which is used to cancel the VTO call and to unlock the door.
 
 Then, pretty much everything is orchestrated through Home Assistant automations.
 
@@ -125,9 +127,9 @@ You can pick the ones you want, and then edit them to fit your needs.
 
 The main one is [`doorbell-ringed.yaml`](./home-assistant/automations/doorbell-ringed.yaml), which starts when someone rings the doorbell and performs the necessary actions like you saw in the demo video.
 
-For example, the first action is to cancel the call in the VTO. This is important so that 2-way audio communication can work well within go2rtc and the Advanced Camera Card.
+Its first action is to cancel the call in the VTO. This is important so that 2-way audio communication can work well within go2rtc and the Advanced Camera Card.
 
-You will need to [create two `input_boolean`s](https://www.home-assistant.io/integrations/input_boolean/) as well. In my automations they are named `input_boolean.doorbell_calling` and `input_boolean.do_not_disturb` (suggested icon is `mdi:bell-off`).
+You will need to [create two `input_boolean`s](https://www.home-assistant.io/integrations/input_boolean/) as well. In my automations they are named `input_boolean.doorbell_calling` (suggested icon is `mdi:phone`) and `input_boolean.do_not_disturb` (suggested icon is `mdi:bell-off`).
 
 The integration also uses the [`ringtone.mp3`](./home-assistant/www/asterisk/ringtone.mp3) to emulate a call by playing it on the tablet. Make sure such file is in your `/config/www/asterisk/` folder.
 

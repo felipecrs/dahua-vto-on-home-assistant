@@ -4,8 +4,8 @@ trigger:
   - platform: state
     entity_id:
       - cover.doorbell_door
-    to: open
     from: closed
+    to: open
 condition:
   - condition:
       - condition: template
@@ -14,6 +14,6 @@ condition:
 action:
   - service: dahua.vto_open_door
     target:
-      entity_id: camera.doorbell_dahua
+      entity_id: camera.doorbell_dahua_main
     data:
       door_id: 1
