@@ -80,7 +80,8 @@ fi
 query="action=setConfig"
 # PCMA: average audio quality, but good for WebRTC and 2-way audio
 query+="&Encode[0].MainFormat[0].Audio.Compression=G.711A"
-query+="&Encode[0].MainFormat[0].Audio.Frequency=8000"
+# 16000Hz yields better audio quality, but try 8000Hz if your VTO does not support it
+query+="&Encode[0].MainFormat[0].Audio.Frequency=16000"
 # AAC: best audio quality, good for Frigate recordings
 query+="&Encode[0].ExtraFormat[0].Audio.Compression=AAC"
 
