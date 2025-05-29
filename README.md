@@ -46,7 +46,7 @@ In this setup, Asterisk will also be used to trigger the automation in Home Assi
 
 ## Components
 
-- Dahua VTO Doorbell VTO2202F-P-S2
+- Dahua VTO Doorbell [VTO2202F-P-S2](https://www.dahuasecurity.com/products/All-Products/Discontinued-Products/Video-Intercoms/VTO2202F-P-S2) (firmware V4.600.0000000.2.R.240802)
 - Home Assistant (running through Home Assistant Operating System in this setup)
 - [Dahua Home Assistant integration](https://github.com/rroller/dahua) to cancel the VTO call and to unlock the door
 - [Asterisk add-on](https://github.com/TECH7Fox/asterisk-hass-addons) to receive the VTO call when someone rings it, and fire the Home Assistant automation
