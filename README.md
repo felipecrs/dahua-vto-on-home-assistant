@@ -103,7 +103,16 @@ go2rtc runs inside Frigate 0.16 Beta in this setup. The go2rtc configuration is 
 
 In my case, I added such script to `/addon_configs/ccab4aaf_frigate-beta/fix_vto_codecs.sh`. Make sure it has execution permission with `chmod +x /addon_configs/ccab4aaf_frigate-beta/fix_vto_codecs.sh`, otherwise go2rtc will not be able to execute it.
 
-Note the script provides a `--https` flag in case your VTO has HTTPS enabled. Mine doesn't.
+> ![NOTE]
+> The script provides a `--https` flag in case your VTO has HTTPS enabled. Mine doesn't.
+
+> ![IMPORTANT]
+> Some VTOs like VTO2211G-WP do not support PCMA with 16000Hz (which yields better audio quality). If that is your case, try changing to 8000Hz in the `fix_vto_codecs.sh`:
+>
+> ```diff
+> - query+="&Encode[0].MainFormat[0].Audio.Frequency=16000"
+> + query+="&Encode[0].MainFormat[0].Audio.Frequency=8000"
+> ```
 
 ### Configuring the Advanced Camera Card
 
