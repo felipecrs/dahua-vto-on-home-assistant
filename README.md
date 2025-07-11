@@ -120,6 +120,9 @@ The code for my dashboard with the Advanced Camera Card configured can be found 
 
 My dashboard is configured to use [layout-card](https://github.com/thomasloven/lovelace-layout-card/), but you are free to make it use other dashboard types.
 
+> [!IMPORTANT]
+> It is mandatory that you access your Home Assistant through HTTPS for microphone to work. This is a browser restriction for allowing websites to use your microphone.
+
 ### Configuring Fully Kiosk Browser
 
 My [Fully Kiosk Browser](https://www.fully-kiosk.com) `settings.json` can be found [here](./fully-kiosk-browser/fully-settings.json). Do not forget to have the [Fully Kiosk Browser official Home Assistant integration](https://www.home-assistant.io/integrations/fully_kiosk) configured, since it is used in the automations.
