@@ -72,7 +72,7 @@ When Asterisk receives the call, it will fire the Home Assistant automation. Thi
 
 The relevant Asterisk files, including the script mentioned above, can be found at [`asterisk`](./asterisk/).
 
-In my case, these files are added to `/addon_configs/b35499aa_asterisk/asterisk`. Don't forget to add execution permissions to the script with `chmod +x /addon_configs/b35499aa_asterisk/asterisk/perform_ha_action.sh`, otherwise Asterisk will not be able to execute it.
+In my case, these files are added to `/addon_configs/b35499aa_asterisk`. Don't forget to add execution permission to the script with `chmod +x /addon_configs/b35499aa_asterisk/perform_homeassistant_action.sh`, otherwise Asterisk will not be able to execute it.
 
 ### Configuring the VTO
 
