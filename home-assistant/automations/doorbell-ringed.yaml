@@ -12,6 +12,7 @@ action:
       url: http://home-assistant.local/lovelace/doorbell
     target:
       device_id: b5005de440d90c862538e61299d8d9f1
+    continue_on_error: true
   - if:
       - condition: state
         entity_id: sun.sun
@@ -24,6 +25,7 @@ action:
           entity_id:
             - media_player.kitchen_assistant
             - media_player.bedroom_assistant
+        continue_on_error: true
     else:
       - action: media_player.volume_set
         data:
@@ -32,6 +34,7 @@ action:
           entity_id:
             - media_player.kitchen_assistant
             - media_player.bedroom_assistant
+        continue_on_error: true
   - parallel:
       - action: notify.all_phones
         data:
@@ -56,6 +59,7 @@ action:
                 uri: /lovelace/doorbell
               - action: IGNORE
                 title: Ignore
+        continue_on_error: true
       - action: notify.all_tvs
         data:
           data:
@@ -68,12 +72,15 @@ action:
             color: black
           title: Doorbell
           message: Someone ringed the doorbell.
+        continue_on_error: true
       - action: notify.assistants
         data:
           message: Someone ringed the doorbell, please answer.
+        continue_on_error: true
   - action: switch.turn_on
     target:
       entity_id: switch.kitchen_tablet_screen
+    continue_on_error: true
   - delay:
       seconds: 5
   - if:
@@ -95,6 +102,7 @@ action:
                 media_content_type: audio/mp3
               target:
                 entity_id: media_player.kitchen_tablet
+              continue_on_error: true
             - delay:
                 seconds: 5
   - action: input_boolean.turn_off
