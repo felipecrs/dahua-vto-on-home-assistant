@@ -153,6 +153,16 @@ cards:
                 advanced_camera_card_action: microphone_disconnect
               - action: custom:advanced-camera-card-action
                 advanced_camera_card_action: mute
+      - type: custom:advanced-camera-card-menu-icon
+        title: Reload
+        icon: mdi:reload
+        tap_action:
+          - action: perform-action
+            perform_action: button.press
+            data:
+              entity_id: button.restart_go2rtc
+          - action: custom:advanced-camera-card-action
+            advanced_camera_card_action: reload
       - type: custom:advanced-camera-card-menu-state-icon
         entity: input_boolean.do_not_disturb
         state_color: true

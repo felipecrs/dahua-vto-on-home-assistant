@@ -145,18 +145,4 @@ You will need to [create two `input_boolean`s](https://www.home-assistant.io/int
 
 The integration also uses the [`ringtone.mp3`](./home-assistant/www/asterisk/ringtone.mp3) to emulate a call by playing it on the tablet. Make sure such file is in your `/config/www/asterisk/` folder.
 
-I created notification groups for my mobile devices and for my TVs to simplify my automation. If you want to do the same, it's as simple as adding this to your Home Assistant `configuration.yaml`:
-
-```yaml
-notify:
-  - name: all_phones
-    platform: group
-    services:
-      - action: mobile_app_phone_a
-      - action: mobile_app_phone_b
-  - name: all_tvs
-    platform: group
-    services:
-      - action: kitchen_tv
-      - action: bedroom_tv
-```
+I created notification groups for my mobile devices and for my TVs to simplify my automation. If you want to do the same, check [`configuration.yaml`](./home-assistant/configuration.yaml) for a reference.

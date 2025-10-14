@@ -1,0 +1,26 @@
+notify:
+  - name: all_phones
+    platform: group
+    services:
+      - action: mobile_app_phone_a
+      - action: mobile_app_phone_b
+  - name: all_tvs
+    platform: group
+    services:
+      - action: kitchen_tv
+      - action: bedroom_tv
+
+rest_command:
+  restart_go2rtc:
+    method: POST
+    url: http://ccab4aaf-frigate:1984/api/restart
+
+template:
+  - button:
+    - name: Restart go2rtc
+      unique_id: 67815cb0-891e-4bae-b4cc-ebf0fcae7bf6
+      icon: mdi:restart
+      # Requires enabling the entity in Devices & services > Supervisor > Frigate > Controls
+      availability: "{{ is_state('switch.frigate', 'on') }}"
+      press:
+        action: rest_command.restart_go2rtc
